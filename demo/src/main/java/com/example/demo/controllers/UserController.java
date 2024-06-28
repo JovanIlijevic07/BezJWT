@@ -25,11 +25,18 @@ public class UserController {
     public String getUsername() {
         return "Petar";
     }
+    @CrossOrigin("*")
     @GetMapping("get-user-list")
     public List<UserModel> getUserList() {
         return UserMapper.toModelList(userRepository.findAll());
     }
+    @CrossOrigin("*")
+    @PostMapping("create-user")
+    public boolean createUser(String username, String email) {
+        return true;
+    }
 
+    @CrossOrigin("*")
     @PostMapping("create-user-body")
     public ResponseEntity<?> createUserBody(@RequestBody @Valid UserModel userModel, BindingResult result) {
         if (result.hasErrors()) {

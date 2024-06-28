@@ -4,19 +4,26 @@ import com.example.demo.entities.Category;
 import com.example.demo.entities.Product;
 import com.example.demo.models.ProductModel;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class ProductMapper {
 
-    public static ProductModel toModel(Product product) {
-        if (product == null) {
-            return null;
-        }
+    public static ProductModel toModel(Product entity) {
         return ProductModel.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
-                .build();
+                .name(entity.getName()).build();
+    }
+
+    public static List<ProductModel> toModelList(List<Product> entities) {
+        var list = new ArrayList<ProductModel>();
+
+        for (var entity : entities) {
+            list.add(toModel(entity));
+        }
+
+        return list;
     }
 
     public static Product toEntity(ProductModel productModel) {
@@ -28,12 +35,6 @@ public class ProductMapper {
         product.setName(productModel.getName());
         product.setDescription(productModel.getDescription());
         product.setPrice(productModel.getPrice());
-        // Postavi kategoriju ako je dostupna
-        if (productModel.getCategoryId() != null) {
-            Category category = new Category();
-            category.setId(productModel.getCategoryId());
-            product.setCategory(category);
-        }
         return product;
     }
 }

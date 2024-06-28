@@ -17,18 +17,18 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
-
+    @CrossOrigin("*")
     @GetMapping
     public List<OrderModel> getAllOrders() {
         return orderService.getAllOrders();
     }
-
+    @CrossOrigin("*")
     @PostMapping
     public ResponseEntity<OrderModel> createOrder(@Valid @RequestBody OrderModel orderModel) {
         OrderModel createdOrder = orderService.createOrder(orderModel);
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
-
+    @CrossOrigin("*")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);

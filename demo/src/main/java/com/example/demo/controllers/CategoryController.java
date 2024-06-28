@@ -18,12 +18,12 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
-
+    @CrossOrigin("*")
     @GetMapping
     public List<CategoryModel> getAllCategories() {
         return categoryService.getAllCategories();
     }
-
+    @CrossOrigin("*")
     @PostMapping
     public ResponseEntity<CategoryModel> createCategory(@Valid @RequestBody CategoryModel categoryModel, BindingResult result) {
         if (result.hasErrors()) {
@@ -32,7 +32,7 @@ public class CategoryController {
         CategoryModel createdCategory = categoryService.createCategory(categoryModel);
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
-
+    @CrossOrigin("*")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Integer id) {
         categoryService.deleteCategory(id);
