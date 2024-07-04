@@ -2,6 +2,8 @@ package com.example.demo.mappers;
 
 import com.example.demo.entities.User;
 import com.example.demo.models.UserModel;
+import com.example.demo.models.UserPageModel;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,4 +39,13 @@ public class UserMapper {
                 .map(UserMapper::toModel)
                 .collect(Collectors.toList());
     }
+    public static UserPageModel toModelPagedList(Page<User> pageEntity) {
+        return UserPageModel.builder()
+                .Users(toModelList(pageEntity.getContent()))
+                .totalPages(pageEntity.getTotalPages())
+                .totalElements(pageEntity.getTotalElements())
+                .build();
+    }
+
+
 }
